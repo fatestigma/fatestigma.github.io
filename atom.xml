@@ -1,16 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[My Octopress Blog]]></title>
+  <title><![CDATA[My Blog]]></title>
   <link href="http://fatestigma.github.io/atom.xml" rel="self"/>
   <link href="http://fatestigma.github.io/"/>
-  <updated>2014-05-01T00:32:37+08:00</updated>
+  <updated>2014-05-01T02:42:06+08:00</updated>
   <id>http://fatestigma.github.io/</id>
   <author>
-    <name><![CDATA[Your Name]]></name>
+    <name><![CDATA[金玺]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Use Octopress to blog]]></title>
+    <link href="http://fatestigma.github.io/blog/2014/05/01/use-octopress-to-blog/"/>
+    <updated>2014-05-01T01:49:49+08:00</updated>
+    <id>http://fatestigma.github.io/blog/2014/05/01/use-octopress-to-blog</id>
+    <content type="html"><![CDATA[<h1>准备使用Octopress做我的博客了</h1>
+
+<hr />
+
+<p>整了大半夜终于把这个Octopress搭建好了，其实很久之前也有搭建Octopress的想法，只不过总是在Ruby的版本上卡壳(好吧，其实是我强迫症，推荐使用Ruby1.9.3的时候我非要装个2.0)。</p>
+
+<p>但是今天抱着试一试的想法，打算不成功便用Jekyll算了，结果没想到竟然成功了。</p>
+
+<p>当然这里还是非常感谢Biaobiaoqi的博文<a href="http://biaobiaoqi.me/blog/2013/03/21/building-octopress-in-github-mac/">在github上搭建octopress博客 Mac版</a>和官方的文档<a href="http://octopress.org/docs/setup/">Octopress Setup</a>的帮助。</p>
+
+<h2>基本使用方法</h2>
+
+<hr />
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># create a post
+</span><span class='line'>rake new_post["post title"]
+</span><span class='line'># preview locally @ http://localhost:4000/
+</span><span class='line'>rake preview
+</span><span class='line'># post it online
+</span><span class='line'>rake deploy</span></code></pre></td></tr></table></div></figure>
+
+
+
+]]></content>
+  </entry>
   
 </feed>
