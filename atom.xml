@@ -4,7 +4,7 @@
   <title><![CDATA[My Blog]]></title>
   <link href="http://fatestigma.github.io/atom.xml" rel="self"/>
   <link href="http://fatestigma.github.io/"/>
-  <updated>2014-05-01T02:42:06+08:00</updated>
+  <updated>2014-05-01T03:06:22+08:00</updated>
   <id>http://fatestigma.github.io/</id>
   <author>
     <name><![CDATA[金玺]]></name>
@@ -38,11 +38,11 @@
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
 <span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># create a post
+</pre></td><td class='code'><pre><code class=''><span class='line'># 新建一个博文
 </span><span class='line'>rake new_post["post title"]
-</span><span class='line'># preview locally @ http://localhost:4000/
+</span><span class='line'># 预览，地址： http://localhost:4000/
 </span><span class='line'>rake preview
-</span><span class='line'># post it online
+</span><span class='line'># 发布
 </span><span class='line'>rake deploy</span></code></pre></td></tr></table></div></figure>
 
 
