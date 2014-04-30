@@ -139,6 +139,23 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
+<h2>Markdown</h2>
+
+<p>Octopress创建的博文都是采用Markdown语言的文件。
+Markdown的编辑器可以采用普通的TextEdit,
+但是看到很多人都推荐<a href="http://mouapp.com">Mou</a>和<a href="http://bywordapp.com">Byword</a>(收费)。
+当然目前个人还是比较喜欢<a href="http://macromates.com">TextMate</a>, TextMate是可以安装Markdown Bundles来拓展其功能
+并且自定义Snippet也非常好用，对于常常要插入代码的程序猿们，写长长的codeblock和endcodeblock还是相当费事费时的。
+所以我写了一个Snippet，用%%作为它的Tab Trigger</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>{\% codeblock lang:${1|applescript,bash,c,cpp,css,html,java,js,jsp,matlab,objc,perl,php,py,rb,xml|} %}
+</span><span class='line'>${0:/* code here */}
+</span><span class='line'>{\% endcodeblock %}</span></code></pre></td></tr></table></div></figure>
+
+
 
 </div>
 
