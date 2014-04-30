@@ -156,6 +156,19 @@ Markdown的编辑器可以采用普通的TextEdit,
 </span><span class='line'>{ % endcodeblock % }</span></code></pre></td></tr></table></div></figure>
 
 
+<h2>问题反馈</h2>
+
+<p>rake preview这个可以在不发布的时候对页面进行预览。
+但是刚开始使用的时候，在Safari中并不能打开localhost:4000这个页面，在Chrome当中却没有问题。
+这个问题在<a href="https://github.com/imathis/octopress/issues/1395">github</a>上找到的解决的方法：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span><span class="nb">echo </span>gem <span class="se">\&quot;</span>thin<span class="se">\&quot;</span> &gt;&gt; Gemfile
+</span><span class='line'><span class="nv">$ </span>bundle install
+</span></code></pre></td></tr></table></div></figure>
+
+
 
 </div>
 
