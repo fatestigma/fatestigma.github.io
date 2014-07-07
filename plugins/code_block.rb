@@ -62,10 +62,10 @@ module Jekyll
       end
       if markup =~ CaptionUrlTitle
         @file = $1
-        @caption = "<figcaption><span>#{$1}</span><a href='#{$2}'>#{$3 || 'link'}</a></figcaption>"
+        @caption = "<figcaption><button onclick=\"codehide(this);\">折叠代码</button><span>#{$1}</span><a href='#{$2}'>#{$3 || 'link'}</a></figcaption>"
       elsif markup =~ Caption
         @file = $1
-        @caption = "<figcaption><span>#{$1}</span></figcaption>\n"
+        @caption = "<figcaption><button onclick=\"codehide(this);\">折叠代码</button><span>#{$1}</span></figcaption>\n"
       end
       if @file =~ /\S[\S\s]*\w+\.(\w+)/ && @filetype.nil?
         @filetype = $1

@@ -115,6 +115,7 @@ task :new_post, :title do |t, args|
     post.puts "date: #{Time.now.strftime('%Y-%m-%d %H:%M:%S %z')}"
     post.puts "comments: true"
     post.puts "categories: "
+    post.puts "tags: "
     post.puts "---"
   end
 end
@@ -267,6 +268,8 @@ multitask :push do
     puts "\n## Pushing generated #{deploy_dir} website"
     system "git push origin #{deploy_branch}"
     puts "\n## Github Pages deploy complete"
+    system "git remote add gitcafe git@gitcafe.com:fatestigma/fatestigma.git >> /dev/null 2>&1"
+    system "git push -u gitcafe master:gitcafe-pages"
   end
 end
 
