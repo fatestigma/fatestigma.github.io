@@ -25,7 +25,7 @@ rake generate deploy
 {% endcodeblock %}
 
 ### 接下来开始正题
-{%img /images/alfred.octopress/all.png %}
+{%img /images/post/140501/all.png %}
 
 首先是分成3条指令post、preview和new   
 第一条post用于快速将他们全部提交上去
@@ -75,14 +75,14 @@ write text "rake new_post[\"{query}\"]"
 
 这样就全都完成了。
 
-{%img /images/alfred.octopress/new_test.png %}
+{%img /images/post/140501/new_test.png %}
 
 非常方便就建立好了一个新的Markdown。
 
 过几天就打包分享看看有没有人用好了。。
 
 OK...这篇blog也写完了，`⌥+space`  
-{%img /images/alfred.octopress/post_test.png %}
+{%img /images/post/140501/post_test.png %}
 
 [1]:http://www.alfredapp.com
 [2]:http://www.iterm2.com

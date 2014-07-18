@@ -7,7 +7,7 @@ categories: Octopress
 tags: [Octopress, LaTeX]
 ---
 
-最近在看$\LaTeX$，所以突然兴起，想看看能不能在被称为A Blogging Framework for Hacker的Octopress上使用$\LaTeX$。。。  
+>最近在看$\LaTeX$，所以突然兴起，想看看能不能在被称为A Blogging Framework for Hacker的Octopress上使用$\LaTeX$。。。  
 虽然我感觉一个学计算机的在博客上用$\LaTeX$的地方应该不会很多  
 但是有一颗穷折腾的心的我决定还是玩一玩。。  
 在百度一番后，发现支持$\LaTeX$原来这么简单  

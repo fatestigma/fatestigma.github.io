@@ -7,7 +7,7 @@ categories: Workflows
 tags: Tools AppleScript
 ---
 
-作为一名程序猿，终端可以说是平时最常用的应用了。
+>作为一名程序猿，终端可以说是平时最常用的应用了。
 但是每次到一个工程路径下都要change directory半天，非常费时，有时候还一不小心就把窗口关掉了，
 又要敲长长的路径，虽然有Tab键的自动补全，还是相当费时费事。
 
@@ -30,7 +30,7 @@ function cdf() # cd to finder's front's window's path
 
 <!--more-->
 
-{% codeblock apple lang:applescript %}
+{% codeblock Quick Access lang:applescript %}
 on searchReplace(origStr, searchStr, replaceStr)
 	set old_delim to AppleScript's text item delimiters
 	set AppleScript's text item delimiters to searchStr
@@ -96,7 +96,8 @@ end alfred_script
 并给它添加新的功能，在有选中的源文件时就顺便编译运行了。
 
 当然这个是针对我个人习惯使用的是iTerm，而对于使用原生的Terminal只需要做点更改就可以了。
-{% codeblock lang:applescript %}
+
+{% codeblock Quick Access with Terminal lang:applescript %}
 on searchReplace(origStr, searchStr, replaceStr)
 	set old_delim to AppleScript's text item delimiters
 	set AppleScript's text item delimiters to searchStr
@@ -151,4 +152,7 @@ on alfred_script()
 	end tell
 end alfred_script
 {% endcodeblock %}
+
+以上的都是主要针对Alfred的Workflows写的，当然可以拷到Automator上，
+然后创建Service添加快捷键就可以了。
 

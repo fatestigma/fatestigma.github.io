@@ -1,15 +1,15 @@
 ---
 layout: post
-title: "Alfred 2 Workflows: TV show helper"
+title: "Alfred Workflows: TV show helper"
 date: 2014-06-28 16:42:36 +0800
 comments: true
 categories: Workflows
 tags: Alfred PHP
 ---
 
-对于一个喜欢看美剧和动漫的人来说，最头疼的就是看片过多导致每部都不记得看到哪了，
+>对于一个喜欢看美剧和动漫的人来说，最头疼的就是看片过多导致每部都不记得看到哪了，
 我早期选择的使用Numbers作一个表格，每看完一集就在表格里修改一次，
-但是这个方法确实是相当麻烦。特此借助[Alfred 2][1]制作了一个Workflow来快速查看并修改。
+但是这个方法确实是相当麻烦。特此借助[Alfred 2]制作了一个Workflow来快速查看并修改。
 
 **使用方法:**
 
@@ -26,11 +26,11 @@ tags: Alfred PHP
 
 ![image](https://github.com/fatestigma/AlfredWorkflows/raw/master/extra/show.png)
 
-**[点此下载][2]**  
-**[GitHub][3]**
+**[点此下载]**  
+**[GitHub]**
 
-[1]:http://www.alfredapp.com
-[2]:https://github.com/fatestigma/AlfredWorkflows/blob/master/Downloads/TV%20Show%20helper%20v0.3.alfredworkflow
-[3]:https://github.com/fatestigma/AlfredWorkflows
+[Alfred 2]:http://www.alfredapp.com
+[点此下载]:https://github.com/fatestigma/AlfredWorkflows/blob/master/Downloads/TV%20Show%20helper%20v0.3.alfredworkflow
+[GitHub]:https://github.com/fatestigma/AlfredWorkflows
 
 

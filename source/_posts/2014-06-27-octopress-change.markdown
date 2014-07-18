@@ -53,9 +53,8 @@ code.html {tab-size: 2;}
 #### 5.给codeblock添加折叠按钮 @Jul 7th, 2014
 每篇文章当中如果代码写的太多，很容易让人觉得挺烦，
 所以我觉得加个折叠按钮还是挺有必要的。
-看了半天Octopress的源代码，终于找到了，首先添加按钮，在`plugins/code_block.rb`中
-第65行和第68行中修改如下：
-
+看了半天Octopress的源代码，终于找到了，首先添加按钮，  
+在`plugins/code_block.rb`中的第65行和第68行中修改如下：
 {% codeblock lang:rb %}
       if markup =~ CaptionUrlTitle
         @file = $1
@@ -64,6 +63,12 @@ code.html {tab-size: 2;}
         @file = $1
         @caption = "<figcaption><button onclick=\"codehide(this);\">折叠代码</button><span>#{$1}</span></figcaption>\n"
       end
+{% endcodeblock %}
+在`plugins/include_code.rb`中的第64行修改如下：
+{% codeblock lang:rb %}
+        url = "/#{code_dir}/#{@file}"
+        source = "<figure class='code'><figcaption><button onclick=\"codehide(this);\">折叠代码</button><span>#{title}</span> <a href='#{url}'>download</a></figcaption>\n"
+        source += "#{highlight(code, @filetype)}</figure>"
 {% endcodeblock %}
 
 然后是在`source/_includes/custom/head.html`中添加如下代码：
@@ -86,6 +91,11 @@ button {
 	background: transparent;
 	position: absolute;
 	left: 0.8em;
+	font-size: 13px;
+	color: #666 !important;
+	text-shadow: #cbcccc 0 1px 0;
+	text-decoration: none;
+	z-index: 1;
 }
 </style>
 {% endcodeblock %}
@@ -95,8 +105,55 @@ button {
 再加上最近感觉Disqus的速度又比较稳定了，所以又改了过来。
 只不过至今我都添加评论系统近2个月了，还是没人评论过，各种怨念。。
 
+#### 7.定制Octopress表格显示 @Jul 11th, 2014
+今天第一次在我的这个博客上使用表格——[AppleScript的UI套件]，
+然后才发现Octopress的表格竟然是没有边框的，
+而这个修改还是非常简单，只用在`sass/custom/_style.scss`添加：
+{% codeblock lang:css %}
+//* + table {border-style: solid; border-width:1px; border-color: #e7e3e7;}
+* + table th, * + table td {border-style:dashed; border-width:1px; border-color:#e7e3e7;padding-left: 3px; padding-right: 3px;}
+* + table th {border-style:solid;font-weight:bold;}
+* + table th[align="left"], * + table td[align="left"] {text-align:left;}
+* + table th[align="right"], * + table td[align="right"] {text-align:right;}
+* + table th[align="center"], * + table td[align="center"] {text-align:center;}
+{% endcodeblock %}
 
+#### 8.更改项目介绍页面 @Jul 12th, 2014
+在Octopress的官方博客中看到关于[Render Partial]的介绍，
+发现可以在一个md文件中添加另一个md文件，在同一个页面的指定位置渲染，
+就类似$\LaTeX$的\input指令一样。
+这样我之前每次在添加Repo介绍页面的时候吧Repository的README.md内容复制也太繁琐了，
+直接用这个方法，以后修改README也不用修改博客内的文件了。
+
+Render Partial的语法是
+{% codeblock %}
+{% raw %}
+{% render_partial path/to/file %}
+{% endraw %}
+{% endcodeblock %}
+
+举例如我的Repository "AlfredWorkflows"，其目录关系如下：
+{% codeblock %}
+Git/
+	octopress/
+		source/
+			repo/
+				AlfredWorkflows/
+					index.markdown
+	AlfredWorkflows/
+		README.md
+{% endcodeblock %}
+则其在`index.markdown`中添加如下代码即可：
+{% codeblock %}
+{% raw %}
+{% render_partial ../../AlfredWorkflows/README.md %}
+{% endraw %}
+{% endcodeblock %}
 
 [1]:http://www.uyan.cc
 [2]:http://blog.devtang.com/blog/2012/02/10/setup-blog-based-on-github#code
 [3]:http://blog.devtang.com/blog/2014/06/02/use-gitcafe-to-host-blog/
+[AppleScript的UI套件]:{{ root_url }}/blog/2014/07/11/applescript-ui-interface-suite/
+[Render Partial]:http://octopress.org/docs/plugins/render-partial/
+
+
