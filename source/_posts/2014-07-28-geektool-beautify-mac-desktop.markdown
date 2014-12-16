@@ -18,7 +18,7 @@ tags: Mac
 首先要先下载我们这个应用[GeekTool],
 美国地区的[App Store]也是有提供下载的。
 
-{%img center /images/post/140728/GeekTool_icon.icns 100px %}
+{%img center /images/post/140728/GeekTool_icon.tiff 100px %}
 
 打开后的界面如下：
 

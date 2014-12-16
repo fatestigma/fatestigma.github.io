@@ -11,7 +11,7 @@ tags: Octopress
 
 但是今天抱着试一试的想法，打算不成功便用Jekyll算了，结果没想到竟然成功了。
 
-当然这里还是非常感谢Biaobiaoqi的博文[在github上搭建octopress博客 Mac版][1]和官方的文档[Octopress Setup][2]的帮助。
+当然这里还是非常感谢Biaobiaoqi的博文[在github上搭建octopress博客 Mac版][1]和官方的文档[Octopress Setup][2]的帮助，至于为什么要用Octopress呢，可以看看这篇文章[Why Octopress]。
 
 
 ### 基本使用方法<!--more-->
@@ -38,7 +38,7 @@ $ rake install['whitelake']
 $ rake generate
 {% endcodeblock %}
 
-### 问题反馈
+### 问题反馈1
 rake preview这个可以在不发布的时候对页面进行预览。
 但是刚开始使用的时候，在Safari中并不能打开localhost:4000这个页面，在Chrome当中却没有问题。
 这个问题在[github][7]上找到的解决的方法：
@@ -46,6 +46,14 @@ rake preview这个可以在不发布的时候对页面进行预览。
 $ echo gem \"thin\" >> Gemfile
 $ bundle install
 {% endcodeblock %}
+
+### 问题反馈2
+在使用了zsh来替代bash之后，发现我的rake new_post[]报错了，错误内容`zsh: no matches found`，这个问题好像是zsh对[]有更复杂的globbing，在[Zsh vs. Bsh：不完全对比解析][8]这篇文章中有详细介绍。
+解决方法：
+
+在`.zshrc`中禁止zsh对参数进行glob扩展：
+
+	alias rake="noglob rake"
 
 ### Markdown
 ***
@@ -259,7 +267,7 @@ Left-aligning pullquotes are good to alternate breaks in the text. They're
 ##### 更多
 还有很多插件，都可以在`plugins`文件夹下查看。
 
-
+[Why Octopress]:http://blog.xdite.net/posts/2011/10/07/what-is-octopress/
 [Kramdown]:http://kramdown.gettalong.org
 [Quick Reference]:http://kramdown.gettalong.org/quickref.htm
 [1]:http://biaobiaoqi.me/blog/2013/03/21/building-octopress-in-github-mac/
@@ -269,3 +277,4 @@ Left-aligning pullquotes are good to alternate breaks in the text. They're
 [5]:http://bywordapp.com
 [6]:http://macromates.com
 [7]:https://github.com/imathis/octopress/issues/1395
+[8]:http://www.soimort.org/posts/163/
