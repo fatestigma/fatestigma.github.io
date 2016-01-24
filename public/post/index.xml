@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Gallifrey</title>
+    <link>http://replace-this-with-your-hugo-site.com/post/</link>
+    <description>Recent content in Posts on Gallifrey</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>All rights reserved - 2016</copyright>
+    <lastBuildDate>Sun, 24 Jan 2016 17:19:23 +0800</lastBuildDate>
+    <atom:link href="http://replace-this-with-your-hugo-site.com/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>my post</title>
+      <link>http://replace-this-with-your-hugo-site.com/post/a-simple-test-post/</link>
+      <pubDate>Sun, 24 Jan 2016 17:19:23 +0800</pubDate>
+      
+      <guid>http://replace-this-with-your-hugo-site.com/post/a-simple-test-post/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>first</title>
+      <link>http://replace-this-with-your-hugo-site.com/post/first/</link>
+      <pubDate>Sun, 24 Jan 2016 15:39:04 +0800</pubDate>
+      
+      <guid>http://replace-this-with-your-hugo-site.com/post/first/</guid>
+      <description>
+
+&lt;h2 id=&#34;fisrt-post:e8fb9c67eba912c72729806db31eaa1b&#34;&gt;Fisrt post&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;for i in range(10):
+  print i
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;for i in range(10):
+  print i
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;lineno&#34;&gt;1 &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt;
+&lt;span class=&#34;lineno&#34;&gt;2 &lt;/span&gt;&lt;span class=&#34;hll&#34;&gt;&lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;b&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#34;lineno&#34;&gt;3 &lt;/span&gt;&lt;span class=&#34;hll&#34;&gt;&lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;c&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#34;lineno&#34;&gt;4 &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;d&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+</description>
+    </item>
+    
+  </channel>
+</rss>
