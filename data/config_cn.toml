@@ -1,0 +1,32 @@
+BaseUrl = "http://replace-this-with-your-hugo-site.com/"
+LanguageCode = "zh-cn"
+title = "Gallifrey"
+paginate = 5
+DisqusShortname = "fatestigma"
+theme = "casper"
+Copyright = "All rights reserved - 2016"
+canonifyurls = true
+hasCJKLanguage = true
+
+[params]
+  description = "兴趣驱动型代码狗"
+  cover = "images/cover.jpg"
+  author = "Eric"
+  authorlocation = "Beijing, China"
+  bio = "兴趣驱动型代码狗"
+  twitterName = "Fate_Stigma"
+  hideHUGOSupport = false
+	locale = "zh-cn"
+
+[[menu.main]]
+  name = "My Blog"
+  weight = -120
+  identifier = "blog"
+  url = "/"
+
+[[menu.main]]
+  name = "About me"
+  weight = -110
+  identifier = "about"
+  url = "/about"
+
