@@ -1,9 +1,8 @@
 BaseUrl = "http://replace-this-with-your-hugo-site.com/"
-LanguageCode = "en-us"
+LanguageCode = "zh-CN"
 title = "Gallifrey"
 paginate = 5
 DisqusShortname = "fatestigma"
-theme = "casper"
 Copyright = "All rights reserved - 2016"
 canonifyurls = true
 hasCJKLanguage = true
@@ -11,11 +10,19 @@ hasCJKLanguage = true
 [params]
   description = "兴趣驱动型代码狗"
   cover = "images/cover.jpg"
+	logo = "images/avatar.jpg"
   author = "Eric"
   authorlocation = "Beijing, China"
   bio = "兴趣驱动型代码狗"
   twitterName = "Fate_Stigma"
   hideHUGOSupport = false
+
+[permalinks]
+    post = "/:year/:month/:day/:filename/"
+
+[taxonomies]
+	tag = "tags"
+	category = "categories"
 
 [[menu.main]]
   name = "My Blog"

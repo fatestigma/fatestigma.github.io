@@ -5,24 +5,23 @@
         {{end}}
     </footer>
     </div>
-    <script type="text/javascript" src="{{.Site.BaseURL}}js/jquery.js"></script>
-    <script type="text/javascript" src="{{.Site.BaseURL}}js/jquery.fitvids.js"></script>
-    <script type="text/javascript" src="{{.Site.BaseURL}}js/index.js"></script>
-		<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
+		<!-- MathJax -->
+		<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 		<script type="text/x-mathjax-config">
 		MathJax.Hub.Config({
 		  tex2jax: {
 		    inlineMath: [['$','$'], ['\\(','\\)']],
-		    displayMath: [['$$','$$'], ['\[','\]']],
+		    displayMath: [['$$','$$'], ['\\[','\\]']],
 		    processEscapes: true,
 		    processEnvironments: true,
-		    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-		    TeX: { equationNumbers: { autoNumber: "AMS" },
-		         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+		    // skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+		    TeX: { 
+					equationNumbers: { autoNumber: "AMS" },
+					extensions: ["AMSmath.js", "AMSsymbols.js"] 
+				}
 		  }
 		});
 		</script>
-
 		<script type="text/x-mathjax-config">
 		  MathJax.Hub.Queue(function() {
 		    // Fix <code> tags after MathJax finishes running. This is a
@@ -34,6 +33,12 @@
 		    }
 		});
 		</script>
+		
+    <script type="text/javascript" src="{{.Site.BaseURL}}js/jquery.js"></script>
+    <script type="text/javascript" src="{{.Site.BaseURL}}js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="{{.Site.BaseURL}}js/index.js"></script>
+
+		
     {{ if .Site.Params.customFooterPartial }}
         {{ partial .Site.Params.customFooterPartial . }}
     {{ end }}
