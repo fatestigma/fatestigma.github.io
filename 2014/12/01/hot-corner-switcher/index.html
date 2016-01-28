@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  	<meta property="og:title" content=" 触发角的快速切换 &middot;  Gallifrey" />
+  	<meta property="og:site_name" content="Gallifrey" />
+  	<meta property="og:url" content="http://replace-this-with-your-hugo-site.com/2014/12/01/hot-corner-switcher/" />
+
+    
+  	<meta property="og:type" content="article" />
+
+    <meta property="og:article:published_time" content="2014-12-01T19:28:17&#43;08:00" />
+
+    
+    <meta property="og:article:tag" content="AppleScript" />
+    
+    <meta property="og:article:tag" content="Mac" />
+    
+    
+
+  <title>
+     触发角的快速切换 &middot;  Gallifrey
+  </title>
+
+    <meta name="description" content="兴趣驱动型代码狗" />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		
+    <link rel="shortcut icon" href="http://replace-this-with-your-hugo-site.com/images/favicon.ico">
+	  <link rel="apple-touch-icon" href="http://replace-this-with-your-hugo-site.com/images/apple-touch-icon.png" />
+
+    <link rel="stylesheet" type="text/css" href="http://replace-this-with-your-hugo-site.com/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="http://replace-this-with-your-hugo-site.com/css/nav.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400|Inconsolata" />
+		
+		<link rel="stylesheet" href="https://highlightjs.org/static/demo/styles/monokai.css">
+		<script src="https://yandex.st/highlightjs/8.0/highlight.min.js"></script>
+		<script>hljs.initHighlightingOnLoad();</script>
+
+
+    
+      
+          <link href="http://replace-this-with-your-hugo-site.com/index.xml" rel="alternate" type="application/rss+xml" title="Gallifrey" />
+      
+      
+    
+    <meta name="generator" content="Hugo 0.15" />
+
+    <link rel="canonical" href="http://replace-this-with-your-hugo-site.com/2014/12/01/hot-corner-switcher/" />
+
+    
+
+    
+</head>
+<body class="nav-closed">
+
+  <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+        
+        
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="http://replace-this-with-your-hugo-site.com/">My Blog</a>
+            </li>
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="http://replace-this-with-your-hugo-site.com/about/">About me</a>
+            </li>
+        
+    </ul>
+    
+    
+    <a class="subscribe-button icon-feed" href="http://replace-this-with-your-hugo-site.com/index.xml">Subscribe</a>
+    
+</div>
+<span class="nav-cover"></span>
+
+
+ <div class="site-wrapper">
+
+
+
+
+<header class="main-header post-head no-cover">
+  <nav class="main-nav clearfix">
+
+
+  
+      <a class="blog-logo icon-arrow-left" href="http://replace-this-with-your-hugo-site.com/">返回</a>
+  
+  
+      <a class="menu-button" href="#"><span class="burger">&#9776;</span><span class="word">目录</span></a>
+  
+  </nav>
+	
+</header>
+
+
+
+<main class="content" role="main">
+
+
+
+
+  <article class="post post">
+
+    <header class="post-header">
+        <h1 class="post-title">触发角的快速切换</h1>
+        <small></small>
+
+        <section class="post-meta">
+        
+          <time class="post-date" datetime="2014-12-01T19:28:17&#43;08:00">
+            2014 年 12 月 1 日
+          </time>
+        
+         
+          <span class="post-tag small"><a href="http://replace-this-with-your-hugo-site.com/tags/applescript/">#AppleScript</a></span>
+         
+          <span class="post-tag small"><a href="http://replace-this-with-your-hugo-site.com/tags/mac/">#Mac</a></span>
+         
+        </section>
+    </header>
+
+    <section class="post-content">
+      
+
+<blockquote>
+<p>最近在百度知道上给一个童鞋写了一个快速切换触发角的 AppleScript，来实现在游戏启动前运行给所有触发角添加一个修饰键（如 Command），结果发现需求的人还是挺多的。
+觉得有必要写一篇简单的教程。</p>
+</blockquote>
+
+<p>其实原理非常简单，就是直接用终端的 <code>defaults</code> 来修改配置文件，这里的配置文件就是：“com.apple.dock”。
+当然 AppleScript 中本身具有修改 plist 文件的方法，但是这个不熟，不如直接使用终端命令来的方便。</p>
+
+<!-- more -->
+
+<p>对于每个触发角都有两个属性，分别是功能和修饰键，在 &ldquo;com.apple.dock&rdquo; 中表现为：<code>wvous-pos-corner</code> 和 <code>wvous-pos-modifier</code>，其中 pos 是要替换的，可以替换成 <code>bl</code>, <code>tl</code>, <code>br</code>, <code>tr</code> 四个，我认为其中 <code>b</code> 表示 bottom，<code>t</code> 表示 top，<code>r</code> 表示 right，<code>l</code> 表示 left。</p>
+
+<p>下面就是代码，这里做的是无修饰键和⌘键之间的切换，
+如果需要切换其他的可以直接在下面代码中修改 <code>adjustModifier</code> 的值。</p>
+
+<script src="//gist.github.com/fatestigma/4678ddfc8a73720f388c.js"></script>
+
+<h2 id="附录:9ff5ffce935b48da68ad77989126b8da">附录</h2>
+
+<h3 id="修饰键和键码对照:9ff5ffce935b48da68ad77989126b8da">修饰键和键码对照</h3>
+
+<table>
+<thead>
+<tr>
+<th align="right">Modifier</th>
+<th align="center">Keycode</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="right">null</td>
+<td align="center">0</td>
+</tr>
+
+<tr>
+<td align="right">⌘</td>
+<td align="center">1048576</td>
+</tr>
+
+<tr>
+<td align="right">⌥</td>
+<td align="center">524288</td>
+</tr>
+
+<tr>
+<td align="right">⌃</td>
+<td align="center">262144</td>
+</tr>
+
+<tr>
+<td align="right">⇧</td>
+<td align="center">131072</td>
+</tr>
+
+<tr>
+<td align="right">⌘⌥</td>
+<td align="center">1572864</td>
+</tr>
+
+<tr>
+<td align="right">⌘⌃</td>
+<td align="center">1310720</td>
+</tr>
+
+<tr>
+<td align="right">⌘⇧</td>
+<td align="center">1179648</td>
+</tr>
+
+<tr>
+<td align="right">⌥⌃</td>
+<td align="center">786432</td>
+</tr>
+
+<tr>
+<td align="right">⌥⇧</td>
+<td align="center">655360</td>
+</tr>
+
+<tr>
+<td align="right">⌃⇧</td>
+<td align="center">393216</td>
+</tr>
+
+<tr>
+<td align="right">⌘⌥⌃</td>
+<td align="center">1835008</td>
+</tr>
+
+<tr>
+<td align="right">⌘⌥⇧</td>
+<td align="center">1703936</td>
+</tr>
+
+<tr>
+<td align="right">⌥⌃⇧</td>
+<td align="center">917504</td>
+</tr>
+
+<tr>
+<td align="right">⌘⌥⌃⇧</td>
+<td align="center">1966080</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="触发角功能对应码:9ff5ffce935b48da68ad77989126b8da">触发角功能对应码</h3>
+
+<table>
+<thead>
+<tr>
+<th align="left">Corner</th>
+<th align="center">Code</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="left">null</td>
+<td align="center">1</td>
+</tr>
+
+<tr>
+<td align="left">Mission Control</td>
+<td align="center">2</td>
+</tr>
+
+<tr>
+<td align="left">Application Windows</td>
+<td align="center">3</td>
+</tr>
+
+<tr>
+<td align="left">Desktop</td>
+<td align="center">4</td>
+</tr>
+
+<tr>
+<td align="left">Dashboard</td>
+<td align="center">7</td>
+</tr>
+
+<tr>
+<td align="left">Notification Center</td>
+<td align="center">12</td>
+</tr>
+
+<tr>
+<td align="left">Launchpad</td>
+<td align="center">11</td>
+</tr>
+
+<tr>
+<td align="left">Start Screen Saver</td>
+<td align="center">5</td>
+</tr>
+
+<tr>
+<td align="left">Disable Screen Saver</td>
+<td align="center">6</td>
+</tr>
+
+<tr>
+<td align="left">Put Display to Sleep</td>
+<td align="center">10</td>
+</tr>
+</tbody>
+</table>
+
+    </section>
+
+
+  <footer class="post-footer">
+
+
+    
+    <figure class="author-image">
+        <a class="img" href="http://replace-this-with-your-hugo-site.com/" style="background-image: url(http://replace-this-with-your-hugo-site.com/images/avatar.jpg)"><span class="hidden">Eric's Picture</span></a>
+    </figure>
+    
+
+    
+
+
+
+
+
+<section class="author">
+  <h4><a href="http://replace-this-with-your-hugo-site.com/">Eric</a></h4>
+  
+  <p>兴趣驱动型代码狗</p>
+  
+  <div class="author-meta">
+    <span class="author-location icon-location">Beijing, China</span>
+    
+  </div>
+</section>
+
+
+
+    
+<section class="share">
+  <h4>Share this post</h4>
+  <a class="icon-twitter" style="font-size: 1.4em" href="https://twitter.com/share?text=%e8%a7%a6%e5%8f%91%e8%a7%92%e7%9a%84%e5%bf%ab%e9%80%9f%e5%88%87%e6%8d%a2&amp;url=http%3a%2f%2freplace-this-with-your-hugo-site.com%2f2014%2f12%2f01%2fhot-corner-switcher%2f"
+      onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+      <span class="hidden">Twitter</span>
+  </a>
+  <a class="icon-facebook" style="font-size: 1.4em" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2freplace-this-with-your-hugo-site.com%2f2014%2f12%2f01%2fhot-corner-switcher%2f"
+      onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+      <span class="hidden">Facebook</span>
+  </a>
+  <a class="icon-pinterest" style="font-size: 1.4em" href="http://pinterest.com/pin/create/button/?url=http%3a%2f%2freplace-this-with-your-hugo-site.com%2f2014%2f12%2f01%2fhot-corner-switcher%2f&amp;description=%e8%a7%a6%e5%8f%91%e8%a7%92%e7%9a%84%e5%bf%ab%e9%80%9f%e5%88%87%e6%8d%a2"
+      onclick="window.open(this.href, 'pinterest-share','width=580,height=296');return false;">
+      <span class="hidden">Pinterest</span>
+  </a>
+  <a class="icon-google-plus" style="font-size: 1.4em" href="https://plus.google.com/share?url=http%3a%2f%2freplace-this-with-your-hugo-site.com%2f2014%2f12%2f01%2fhot-corner-switcher%2f"
+     onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+      <span class="hidden">Google+</span>
+  </a>
+</section>
+
+
+
+    
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+  var disqus_shortname = 'fatestigma';
+  var disqus_url = 'http:\/\/replace-this-with-your-hugo-site.com\/2014\/12\/01\/hot-corner-switcher\/';
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+
+  </footer>
+</article>
+
+</main>
+    <footer class="site-footer clearfix">
+        <section class="copyright"><a href="">Gallifrey</a> All rights reserved - 2016</section>
+        
+        <section class="poweredby">Proudly generated by <a class="icon-hugo" href="http://gohugo.io">HUGO</a>, with <a class="icon-theme" href="https://github.com/vjeantet/hugo-theme-casper">Casper</a> theme</section>
+        
+    </footer>
+    </div>
+		
+		<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+		<script type="text/x-mathjax-config">
+		MathJax.Hub.Config({
+		  tex2jax: {
+		    inlineMath: [['$','$'], ['\\(','\\)']],
+		    displayMath: [['$$','$$'], ['\\[','\\]']],
+		    processEscapes: true,
+		    processEnvironments: true,
+		    
+		    TeX: { 
+					equationNumbers: { autoNumber: "AMS" },
+					extensions: ["AMSmath.js", "AMSsymbols.js"] 
+				}
+		  }
+		});
+		</script>
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Queue(function() {
+		    
+		    
+		    
+		    var all = MathJax.Hub.getAllJax(), i;
+		    for(i = 0; i < all.length; i += 1) {
+		        all[i].SourceElement().parentNode.className += ' has-jax';
+		    }
+		});
+		</script>
+		
+    <script type="text/javascript" src="http://replace-this-with-your-hugo-site.com/js/jquery.js"></script>
+    <script type="text/javascript" src="http://replace-this-with-your-hugo-site.com/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="http://replace-this-with-your-hugo-site.com/js/index.js"></script>
+
+		
+    
+</body>
+</html>
+

@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Mac on Gallifrey</title>
+    <link>http://replace-this-with-your-hugo-site.com/tags/mac/</link>
+    <description>Recent content in Mac on Gallifrey</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <copyright>All rights reserved - 2016</copyright>
+    <lastBuildDate>Mon, 25 Jan 2016 21:06:33 +0800</lastBuildDate>
+    <atom:link href="http://replace-this-with-your-hugo-site.com/tags/mac/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>从 Octopress 迁移到 Hugo</title>
+      <link>http://replace-this-with-your-hugo-site.com/2016/01/25/migrate-hugo-from-octopress/</link>
+      <pubDate>Mon, 25 Jan 2016 21:06:33 +0800</pubDate>
+      
+      <guid>http://replace-this-with-your-hugo-site.com/2016/01/25/migrate-hugo-from-octopress/</guid>
+      <description>
+
+&lt;p&gt;说到静态编辑器，首先能想到的肯定就是排名最靠前的 Jekyll, Octopress, Hexo 了&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:0fa6a628c14f2d7dfd438ab7829a2fce:1&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:0fa6a628c14f2d7dfd438ab7829a2fce:1&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;。然而 Jekyll 和 Octopress 的速度一直是饱受诟病，虽然我日志数量距离三位数都还远着，先前的那个博客生成速度还远没有感受到限制，但是俗话说得好「工欲善其事必先利其器」；至于 Hexo，只能说对 NodeJS 是啥都毫无概念，直接过滤掉，再加上 Hugo 的作者是关注已久的 spf13 大神。&lt;/p&gt;
+
+&lt;p&gt;Hugo 最大的优点就是快，此外它对环境没有要求，直接采用编译后的二进制文件发布，所以连 Go 都不需要安装就可以直接上手撸 Hugo 了，在 Mac 上直接用 Homebrew 安装，不知道 Homebrew 的&lt;a href=&#34;http://brew.sh/&#34;&gt;请狗带&lt;/a&gt;；如果用的不是 Mac，也&lt;a href=&#34;https://gohugo.io/overview/installing/&#34;&gt;请狗带&lt;/a&gt;。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;brew update &amp;amp;&amp;amp; brew install hugo
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;hugo-简单建站步骤:0fa6a628c14f2d7dfd438ab7829a2fce&#34;&gt;Hugo 简单建站步骤&lt;/h2&gt;
+
+&lt;p&gt;首先创建你想要存放博客的地点，然后用 &lt;code&gt;hugo new site&lt;/code&gt; 来建站。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;hugo new site Blog
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;就这样你就建好了你自己的博客，其文件框架为&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;archetypes/
+content/
+data/
+layouts/
+static/
+config.toml
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;其中所有所有的日志等内容应存放于 &lt;code&gt;content&lt;/code&gt; 中，Hugo 会对这个目录下的&lt;a href=&#34;https://gohugo.io/content/supported-formats/&#34; title=&#34;Hugo Supported Files&#34;&gt;所有格式符合的文档&lt;/a&gt;结合 &lt;code&gt;layouts&lt;/code&gt; 或主题中的模板来渲染，而 &lt;code&gt;static&lt;/code&gt; 中的文件会直接拷贝到最终发布文件夹 &lt;code&gt;public&lt;/code&gt; 里，&lt;code&gt;data&lt;/code&gt; 文件夹中&lt;a href=&#34;https://gohugo.io/extras/datafiles/&#34; title=&#34;Hugo Data files&#34;&gt;存放各种数据&lt;/a&gt;，数据格式只能是 &lt;code&gt;.toml&lt;/code&gt;, &lt;code&gt;.yaml&lt;/code&gt;, &lt;code&gt;.json&lt;/code&gt;。&lt;/p&gt;
+
+&lt;h2 id=&#34;戛然而止:0fa6a628c14f2d7dfd438ab7829a2fce&#34;&gt;戛然而止&lt;/h2&gt;
+
+&lt;p&gt;本来打算继续按说明文的方式写下去，但是感觉这样写也未免太没有意思了，反正一开始我就是按照 &lt;a href=&#34;https://gohugo.io/overview/quickstart/&#34; title=&#34;Hugo Quickstart&#34;&gt;Hugo 的教程&lt;/a&gt; 走的，按照我走的顺序翻译一遍真的一点营养都没有，因此如果这篇文章真有人看，不如直接按照教程走，我在这稍微补充一些干货好了。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;先挑模板再设置&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;除非你是大神，打算从头自己无脑直接撸一个自己的网站出来以外，由于 Hugo 每个主题都是各个第三方作者制作贡献的，配置方法就很难做到协调统一，因此建议先从官方给出的 &lt;a href=&#34;http://themes.gohugo.io/&#34; title=&#34;Hugo Themes&#34;&gt;主题库&lt;/a&gt; 中先挑选出心仪主题，然后在根据主题内容慢慢调教。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;认准模板&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;很多人用 Hugo 应该都是打算用来做个人博客吧，但是 Hugo 不同于前几名的静态生存器，很多模板都不是个人博客模板，那么选模板的时候更要认准内容和其用处；我选用的本来是 &lt;code&gt;casper&lt;/code&gt;，但是后来发现 &lt;code&gt;casper&lt;/code&gt; 模板其实更适合多人博客，因此又免不了大改。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;自动化&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Hugo 提供了一个非常简易的在 Github Pages 自动化部署的方法，其中主要利用 Wercker&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:0fa6a628c14f2d7dfd438ab7829a2fce:6&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:0fa6a628c14f2d7dfd438ab7829a2fce:6&#34;&gt;2&lt;/a&gt;&lt;/sup&gt; 来监控 Github 的 Source files 的提交，然后自动触发 Hugo-Build 这个动作，然后自动将渲染的网页部署，一下子将减少了很多重复性操作（既然不用自己 Build 了，应该本机上连 Hugo 都可以不用安装了吧）。&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;footnotes&#34;&gt;
+
+&lt;hr /&gt;
+
+&lt;ol&gt;
+&lt;li id=&#34;fn:0fa6a628c14f2d7dfd438ab7829a2fce:1&#34;&gt;截止发稿当天，静态网站生成器以 GitHub Star 数量排序，前五名分别为 Jekyll, Octopress, Hexo, Hugo, Pelican。数据来源：&lt;a href=&#34;https://staticsitegenerators.net&#34;&gt;Static Site Generators&lt;/a&gt;
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:0fa6a628c14f2d7dfd438ab7829a2fce:1&#34;&gt;&lt;sup&gt;[return]&lt;/sup&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li id=&#34;fn:0fa6a628c14f2d7dfd438ab7829a2fce:6&#34;&gt;一个持续性代码部署云服务 &lt;a href=&#34;http://wercker.com/&#34;&gt;http://wercker.com/&lt;/a&gt;
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:0fa6a628c14f2d7dfd438ab7829a2fce:6&#34;&gt;&lt;sup&gt;[return]&lt;/sup&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>AppleScript 按键内容</title>
+      <link>http://replace-this-with-your-hugo-site.com/2015/05/13/applescript-keyboard/</link>
+      <pubDate>Wed, 13 May 2015 19:49:02 +0800</pubDate>
+      
+      <guid>http://replace-this-with-your-hugo-site.com/2015/05/13/applescript-keyboard/</guid>
+      <description>
+
+&lt;h2 id=&#34;按键:5484ec91fdcc2c72849de7211baa2acf&#34;&gt;按键&lt;/h2&gt;
+
+&lt;h3 id=&#34;keystroke:5484ec91fdcc2c72849de7211baa2acf&#34;&gt;Keystroke&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;keystroke&lt;/strong&gt; text [ using modifiers down ]&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-applescript&#34;&gt;tell application &amp;quot;System Events&amp;quot; to keystroke &amp;quot;i&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如果需要修饰键则添加可选语句：&lt;code&gt;using command down&lt;/code&gt;；
+如果需要多个修饰键，使用 &lt;code&gt;using {command down, shift down}&lt;/code&gt;。&lt;/p&gt;
+
+&lt;h3 id=&#34;key-code:5484ec91fdcc2c72849de7211baa2acf&#34;&gt;Key code&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;key code&lt;/strong&gt; integer or list of integer [using modifiers down]&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-applescript&#34;&gt;key code 37 using command down
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;每个键都有其对应的 Key code，可以使用 AppStore 中的 Key Codes 应用来查看各个按键对应的 Key Code。&lt;/p&gt;
+
+&lt;h3 id=&#34;modifier-down:5484ec91fdcc2c72849de7211baa2acf&#34;&gt;Modifier Down&lt;/h3&gt;
+
+&lt;h2 id=&#34;按键检测:5484ec91fdcc2c72849de7211baa2acf&#34;&gt;按键检测&lt;/h2&gt;
+
+&lt;p&gt;存在的问题：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;AppleScript 中随着 AppleScript Studio 的消失也不具有很多监听器，其中就有按键监听器。&lt;/li&gt;
+&lt;li&gt;AppleScript 本身没有获取当前按键的方法。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;解决方案：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;对于监听器这里只能采用定时检测的方式来完成对按键的检测。&lt;/li&gt;
+&lt;li&gt;按键获取方面则好在可以使用 ObjC-Bridge。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-applescript&#34;&gt;using framework &amp;quot;Foundation&amp;quot;
+tell application &amp;quot;System Events&amp;quot;
+    repeat
+        delay 0.05
+        set flag to my BWAND((current application&#39;s NSEvent&#39;s modifierFlags()),(current application&#39;s NSCommandKeyMask)) &amp;gt; 0
+        if flag is true then exit repeat
+    end repeat
+end tell
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ol&gt;
+&lt;li&gt;第一行调用 ObjC 的 Foundation 框架。&lt;/li&gt;
+&lt;li&gt;使用 &lt;code&gt;current application&#39;s NSEvent&#39;s modifierFlags()&lt;/code&gt; 获取当前按键（修饰键）的值，并且其二进制值的各位代表不同修饰键。&lt;/li&gt;
+&lt;li&gt;使用 &lt;code&gt;current application&#39;s NSCommandKeyMask()&lt;/code&gt; 方法获取 Command 键对应位为 1 的二进制值。&lt;/li&gt;
+&lt;li&gt;使用自定义函数 &lt;code&gt;my BWAND()&lt;/code&gt; 来比较当前按键和 Command 键的按位与运算，如果其结果非零，则代表 Command 键被按下。&lt;/li&gt;
+&lt;li&gt;退出循环。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;附 &lt;code&gt;my BWAND&lt;/code&gt; 代码：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-applescript&#34;&gt;on BWAND(__int1, __int2)
+	set theResult to 0
+	repeat with bitOffset from 30 to 0 by -1
+		if __int1 div (2 ^ bitOffset) = 1 and __int2 div (2 ^ bitOffset) = 1 then
+			set theResult to theResult + 2 ^ bitOffset
+		end if
+		set __int1 to __int1 mod (2 ^ bitOffset)
+		set __int2 to __int2 mod (2 ^ bitOffset)
+	end repeat
+	return theResult as integer
+end BWAND
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>触发角的快速切换</title>
+      <link>http://replace-this-with-your-hugo-site.com/2014/12/01/hot-corner-switcher/</link>
+      <pubDate>Mon, 01 Dec 2014 19:28:17 +0800</pubDate>
+      
+      <guid>http://replace-this-with-your-hugo-site.com/2014/12/01/hot-corner-switcher/</guid>
+      <description>
+
+&lt;blockquote&gt;
+&lt;p&gt;最近在百度知道上给一个童鞋写了一个快速切换触发角的 AppleScript，来实现在游戏启动前运行给所有触发角添加一个修饰键（如 Command），结果发现需求的人还是挺多的。
+觉得有必要写一篇简单的教程。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;其实原理非常简单，就是直接用终端的 &lt;code&gt;defaults&lt;/code&gt; 来修改配置文件，这里的配置文件就是：“com.apple.dock”。
+当然 AppleScript 中本身具有修改 plist 文件的方法，但是这个不熟，不如直接使用终端命令来的方便。&lt;/p&gt;
+
+&lt;!-- more --&gt;
+
+&lt;p&gt;对于每个触发角都有两个属性，分别是功能和修饰键，在 &amp;ldquo;com.apple.dock&amp;rdquo; 中表现为：&lt;code&gt;wvous-pos-corner&lt;/code&gt; 和 &lt;code&gt;wvous-pos-modifier&lt;/code&gt;，其中 pos 是要替换的，可以替换成 &lt;code&gt;bl&lt;/code&gt;, &lt;code&gt;tl&lt;/code&gt;, &lt;code&gt;br&lt;/code&gt;, &lt;code&gt;tr&lt;/code&gt; 四个，我认为其中 &lt;code&gt;b&lt;/code&gt; 表示 bottom，&lt;code&gt;t&lt;/code&gt; 表示 top，&lt;code&gt;r&lt;/code&gt; 表示 right，&lt;code&gt;l&lt;/code&gt; 表示 left。&lt;/p&gt;
+
+&lt;p&gt;下面就是代码，这里做的是无修饰键和⌘键之间的切换，
+如果需要切换其他的可以直接在下面代码中修改 &lt;code&gt;adjustModifier&lt;/code&gt; 的值。&lt;/p&gt;
+
+&lt;script src=&#34;//gist.github.com/fatestigma/4678ddfc8a73720f388c.js&#34;&gt;&lt;/script&gt;
+
+&lt;h2 id=&#34;附录:9ff5ffce935b48da68ad77989126b8da&#34;&gt;附录&lt;/h2&gt;
+
+&lt;h3 id=&#34;修饰键和键码对照:9ff5ffce935b48da68ad77989126b8da&#34;&gt;修饰键和键码对照&lt;/h3&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&#34;right&#34;&gt;Modifier&lt;/th&gt;
+&lt;th align=&#34;center&#34;&gt;Keycode&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;null&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;0&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;⌘&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;1048576&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;⌥&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;524288&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;⌃&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;262144&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;⇧&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;131072&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;⌘⌥&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;1572864&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;⌘⌃&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;1310720&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;⌘⇧&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;1179648&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;⌥⌃&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;786432&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;⌥⇧&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;655360&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;⌃⇧&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;393216&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;⌘⌥⌃&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;1835008&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;⌘⌥⇧&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;1703936&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;⌥⌃⇧&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;917504&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;⌘⌥⌃⇧&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;1966080&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&#34;触发角功能对应码:9ff5ffce935b48da68ad77989126b8da&#34;&gt;触发角功能对应码&lt;/h3&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&#34;left&#34;&gt;Corner&lt;/th&gt;
+&lt;th align=&#34;center&#34;&gt;Code&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;null&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;1&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;Mission Control&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;2&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;Application Windows&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;3&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;Desktop&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;4&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;Dashboard&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;7&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;Notification Center&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;12&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;Launchpad&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;11&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;Start Screen Saver&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;5&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;Disable Screen Saver&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;6&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;Put Display to Sleep&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;10&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

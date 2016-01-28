@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>http://replace-this-with-your-hugo-site.com/</loc>
+    <lastmod>2016-01-25T21:06:33+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://replace-this-with-your-hugo-site.com/2016/01/25/migrate-hugo-from-octopress/</loc>
+    <lastmod>2016-01-25T21:06:33+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://replace-this-with-your-hugo-site.com/about/</loc>
+    <lastmod>2016-01-24T15:36:47+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://replace-this-with-your-hugo-site.com/2015/05/13/applescript-keyboard/</loc>
+    <lastmod>2015-05-13T19:49:02+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://replace-this-with-your-hugo-site.com/2014/12/01/hot-corner-switcher/</loc>
+    <lastmod>2014-12-01T19:28:17+08:00</lastmod>
+  </url>
+  
+</urlset>
