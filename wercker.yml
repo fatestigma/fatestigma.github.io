@@ -10,4 +10,4 @@ deploy:
     - leipert/git-push@0.7.6:
          gh_oauth: $GH_TOKEN
          gh_pages: true
-         basedir: build
+         basedir: public
