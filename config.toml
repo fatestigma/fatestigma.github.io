@@ -1,4 +1,4 @@
-BaseUrl = "http://replace-this-with-your-hugo-site.com/"
+BaseUrl = "http://fatestigma.github.io"
 LanguageCode = "zh-CN"
 title = "Gallifrey"
 paginate = 5
