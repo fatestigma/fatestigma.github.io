@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on Gallifrey</title>
-    <link>http://replace-this-with-your-hugo-site.com/post/</link>
+    <link>http://fatestigma.github.io/post/</link>
     <description>Recent content in Posts on Gallifrey</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <copyright>All rights reserved - 2016</copyright>
     <lastBuildDate>Mon, 25 Jan 2016 21:06:33 +0800</lastBuildDate>
-    <atom:link href="http://replace-this-with-your-hugo-site.com/post/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://fatestigma.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>从 Octopress 迁移到 Hugo</title>
-      <link>http://replace-this-with-your-hugo-site.com/2016/01/25/migrate-hugo-from-octopress/</link>
+      <link>http://fatestigma.github.io/2016/01/25/migrate-hugo-from-octopress/</link>
       <pubDate>Mon, 25 Jan 2016 21:06:33 +0800</pubDate>
       
-      <guid>http://replace-this-with-your-hugo-site.com/2016/01/25/migrate-hugo-from-octopress/</guid>
+      <guid>http://fatestigma.github.io/2016/01/25/migrate-hugo-from-octopress/</guid>
       <description>
 
 &lt;p&gt;说到静态编辑器，首先能想到的肯定就是排名最靠前的 Jekyll, Octopress, Hexo 了&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:0fa6a628c14f2d7dfd438ab7829a2fce:1&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:0fa6a628c14f2d7dfd438ab7829a2fce:1&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;。然而 Jekyll 和 Octopress 的速度一直是饱受诟病，虽然我日志数量距离三位数都还远着，先前的那个博客生成速度还远没有感受到限制，但是俗话说得好「工欲善其事必先利其器」；至于 Hexo，只能说对 NodeJS 是啥都毫无概念，直接过滤掉，再加上 Hugo 的作者是关注已久的 spf13 大神。&lt;/p&gt;
@@ -77,10 +77,10 @@ config.toml
     
     <item>
       <title>AppleScript 按键内容</title>
-      <link>http://replace-this-with-your-hugo-site.com/2015/05/13/applescript-keyboard/</link>
+      <link>http://fatestigma.github.io/2015/05/13/applescript-keyboard/</link>
       <pubDate>Wed, 13 May 2015 19:49:02 +0800</pubDate>
       
-      <guid>http://replace-this-with-your-hugo-site.com/2015/05/13/applescript-keyboard/</guid>
+      <guid>http://fatestigma.github.io/2015/05/13/applescript-keyboard/</guid>
       <description>
 
 &lt;h2 id=&#34;按键:5484ec91fdcc2c72849de7211baa2acf&#34;&gt;按键&lt;/h2&gt;
@@ -159,10 +159,10 @@ end BWAND
     
     <item>
       <title>触发角的快速切换</title>
-      <link>http://replace-this-with-your-hugo-site.com/2014/12/01/hot-corner-switcher/</link>
+      <link>http://fatestigma.github.io/2014/12/01/hot-corner-switcher/</link>
       <pubDate>Mon, 01 Dec 2014 19:28:17 +0800</pubDate>
       
-      <guid>http://replace-this-with-your-hugo-site.com/2014/12/01/hot-corner-switcher/</guid>
+      <guid>http://fatestigma.github.io/2014/12/01/hot-corner-switcher/</guid>
       <description>
 
 &lt;blockquote&gt;
