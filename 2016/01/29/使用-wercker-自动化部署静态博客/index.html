@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  	<meta property="og:title" content=" 使用 Wercker 自动化部署静态博客 &middot;  Gallifrey" />
+  	<meta property="og:site_name" content="Gallifrey" />
+  	<meta property="og:url" content="http://fatestigma.github.io/2016/01/29/%E4%BD%BF%E7%94%A8-wercker-%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/" />
+
+    
+  	<meta property="og:type" content="article" />
+
+    <meta property="og:article:published_time" content="2016-01-29T00:47:51&#43;08:00" />
+
+    
+    <meta property="og:article:tag" content="Hugo" />
+    
+    <meta property="og:article:tag" content="Automation" />
+    
+    
+
+  <title>
+     使用 Wercker 自动化部署静态博客 &middot;  Gallifrey
+  </title>
+
+    <meta name="description" content="兴趣驱动型代码狗" />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		
+    <link rel="shortcut icon" href="http://fatestigma.github.io/images/favicon.ico">
+	  <link rel="apple-touch-icon" href="http://fatestigma.github.io/images/apple-touch-icon.png" />
+
+    <link rel="stylesheet" type="text/css" href="http://fatestigma.github.io/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="http://fatestigma.github.io/css/nav.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400|Inconsolata" />
+		
+		<link rel="stylesheet" href="https://highlightjs.org/static/demo/styles/monokai.css">
+		<script src="https://yandex.st/highlightjs/8.0/highlight.min.js"></script>
+		<script>hljs.initHighlightingOnLoad();</script>
+
+
+    
+      
+          <link href="http://fatestigma.github.io/index.xml" rel="alternate" type="application/rss+xml" title="Gallifrey" />
+      
+      
+    
+    <meta name="generator" content="Hugo 0.15" />
+
+    <link rel="canonical" href="http://fatestigma.github.io/2016/01/29/%E4%BD%BF%E7%94%A8-wercker-%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/" />
+
+    
+
+    
+</head>
+<body class="nav-closed">
+
+  <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+        
+        
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="http://fatestigma.github.io/">My Blog</a>
+            </li>
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="http://fatestigma.github.io/about/">About me</a>
+            </li>
+        
+    </ul>
+    
+    
+    <a class="subscribe-button icon-feed" href="http://fatestigma.github.io/index.xml">Subscribe</a>
+    
+</div>
+<span class="nav-cover"></span>
+
+
+ <div class="site-wrapper">
+
+
+
+
+<header class="main-header post-head no-cover">
+  <nav class="main-nav clearfix">
+
+
+  
+      <a class="blog-logo icon-arrow-left" href="http://fatestigma.github.io/">返回</a>
+  
+  
+      <a class="menu-button" href="#"><span class="burger">&#9776;</span><span class="word">目录</span></a>
+  
+  </nav>
+	
+</header>
+
+
+
+<main class="content" role="main">
+
+
+
+
+  <article class="post post">
+
+    <header class="post-header">
+        <h1 class="post-title">使用 Wercker 自动化部署静态博客</h1>
+        <small></small>
+
+        <section class="post-meta">
+        
+          <time class="post-date" datetime="2016-01-29T00:47:51&#43;08:00">
+            2016 年 1 月 29 日
+          </time>
+        
+         
+          <span class="post-tag small"><a href="http://fatestigma.github.io/tags/hugo/">#Hugo</a></span>
+         
+          <span class="post-tag small"><a href="http://fatestigma.github.io/tags/automation/">#Automation</a></span>
+         
+        </section>
+    </header>
+
+    <section class="post-content">
+      
+
+<p>人想偷懒的方法就是采用自动化，对于 Hugo 还有 Octopress、Jekyll 等静态网页生成工具来说，用来做博客的一般步骤就是：</p>
+
+<ol>
+<li>本地写新日志</li>
+<li>本地运行静态网页生成工具来生成静态网站</li>
+<li>将静态网站提交到网站托管服务器或 GitHub 上</li>
+</ol>
+
+<p>然而每写一篇日志都要重复这些步骤全是让人很心烦，正好在 Hugo 的官方教程中翻到了「<a href="http://gohugo.io/tutorials/automated-deployments/" title="Automated deployments with Wercker">Automated deployments with Wercker</a>」，随即眼睛一亮，开始了我的折腾之旅。</p>
+
+<h2 id="什么是-wercker:498af5626af97a17ee9018cbffd1d04c">什么是 Wercker</h2>
+
+<p>这个 Wercker 是什么呢？其实我也不清楚，研究半天也只看出些许名堂，其简单来说就是定义一系列流程在你每次提交代码到 GitHub 时运行，其分为构建（Build）与部署（Deploy）两个部分，每个部分都有很多别人贡献的子动作（Step）可以直接拿来使用。其实若不是 Hugo 官方给出的教程不适合我，我基本都不用了解到这一步。</p>
+
+<h2 id="准备工作:498af5626af97a17ee9018cbffd1d04c">准备工作</h2>
+
+<p>首先你得现在你本地搭好环境，确定已经完成以下内容：</p>
+
+<ol>
+<li>安好了 Hugo，并已经新建好了站点。</li>
+<li>设置好了版本管理，这里我们用的是 git，并将代码上传到 GitHub。</li>
+<li>准备好网站的容器，这里我们用的是免费的 GitHub Pages 服务，并准备好一个 Access Token。</li>
+</ol>
+
+<p>连环境都没有的就别在这里扯淡了，赶快先<a href="https://gohugo.io/overview/quickstart/" title="Hugo Quickstart">去老老实实地搭环境</a>。</p>
+
+<h2 id="配置-wercker:498af5626af97a17ee9018cbffd1d04c">配置 Wercker</h2>
+
+<p>这里我就根据我自己的配置经历来介绍采用 GitHub Pages 的方案。</p>
+
+<p>注册什么的废话不多说，注册完之后，根据提示绑定 GitHub 账号，然后新建应用，使用你之前准备好的 GitHub 项目，然后一通 blablabla，建立完成。</p>
+
+<p>正题终于开始了，这个时候回到本机项目目录，并建立一个名叫 <code>wercker.yml</code> 的文件，并写入以下内容。</p>
+
+<pre><code class="language-yaml">box: debian
+build:
+  steps:
+    - arjen/hugo-build:
+        version: &quot;0.15&quot;
+deploy:
+  steps:
+    - install-packages:
+        packages: git ssh-client
+    - leipert/git-push:
+         gh_oauth: $GH_TOKEN
+         gh_pages: true
+         basedir: public
+</code></pre>
+
+<p>可能有人看了官方的教程发现和我这个有略微差别，因为官方提供的那个代码中用的 <code>lukevivier/gh-pages@0.2.1</code> 在部署上有些问题，对于 <code>username.github.io</code> 的项目来说，应当采用 <code>master</code> 分支来存放生成的静态页面，而那个 step 则仍会保存到 <code>gh-pages</code> 分支；我后来改用的 <code>leipert/git-push</code> 则是别人在 <code>lukevivier</code> 的老版本上演绎的一个全新的工具其具体的功能不在这里详述。</p>
+
+<p>修改完成后，先不要着急提交，回到 wercker 我们的应用来设置我们的部署，建立一个「自定义部署」。</p>
+
+<p>接下来该干什么就自己猜吧。</p>
+
+    </section>
+
+
+  <footer class="post-footer">
+
+
+    
+    <figure class="author-image">
+        <a class="img" href="http://fatestigma.github.io/" style="background-image: url(http://fatestigma.github.io/images/avatar.jpg)"><span class="hidden">Eric's Picture</span></a>
+    </figure>
+    
+
+    
+
+
+
+
+
+<section class="author">
+  <h4><a href="http://fatestigma.github.io/">Eric</a></h4>
+  
+  <p>兴趣驱动型代码狗</p>
+  
+  <div class="author-meta">
+    <span class="author-location icon-location">Beijing, China</span>
+    
+  </div>
+</section>
+
+
+
+    
+<section class="share">
+  <h4>Share this post</h4>
+  <a class="icon-twitter" style="font-size: 1.4em" href="https://twitter.com/share?text=%e4%bd%bf%e7%94%a8%20Wercker%20%e8%87%aa%e5%8a%a8%e5%8c%96%e9%83%a8%e7%bd%b2%e9%9d%99%e6%80%81%e5%8d%9a%e5%ae%a2&amp;url=http%3a%2f%2ffatestigma.github.io%2f2016%2f01%2f29%2f%25E4%25BD%25BF%25E7%2594%25A8-wercker-%25E8%2587%25AA%25E5%258A%25A8%25E5%258C%2596%25E9%2583%25A8%25E7%25BD%25B2%25E9%259D%2599%25E6%2580%2581%25E5%258D%259A%25E5%25AE%25A2%2f"
+      onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+      <span class="hidden">Twitter</span>
+  </a>
+  <a class="icon-facebook" style="font-size: 1.4em" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2ffatestigma.github.io%2f2016%2f01%2f29%2f%25E4%25BD%25BF%25E7%2594%25A8-wercker-%25E8%2587%25AA%25E5%258A%25A8%25E5%258C%2596%25E9%2583%25A8%25E7%25BD%25B2%25E9%259D%2599%25E6%2580%2581%25E5%258D%259A%25E5%25AE%25A2%2f"
+      onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+      <span class="hidden">Facebook</span>
+  </a>
+  <a class="icon-pinterest" style="font-size: 1.4em" href="http://pinterest.com/pin/create/button/?url=http%3a%2f%2ffatestigma.github.io%2f2016%2f01%2f29%2f%25E4%25BD%25BF%25E7%2594%25A8-wercker-%25E8%2587%25AA%25E5%258A%25A8%25E5%258C%2596%25E9%2583%25A8%25E7%25BD%25B2%25E9%259D%2599%25E6%2580%2581%25E5%258D%259A%25E5%25AE%25A2%2f&amp;description=%e4%bd%bf%e7%94%a8%20Wercker%20%e8%87%aa%e5%8a%a8%e5%8c%96%e9%83%a8%e7%bd%b2%e9%9d%99%e6%80%81%e5%8d%9a%e5%ae%a2"
+      onclick="window.open(this.href, 'pinterest-share','width=580,height=296');return false;">
+      <span class="hidden">Pinterest</span>
+  </a>
+  <a class="icon-google-plus" style="font-size: 1.4em" href="https://plus.google.com/share?url=http%3a%2f%2ffatestigma.github.io%2f2016%2f01%2f29%2f%25E4%25BD%25BF%25E7%2594%25A8-wercker-%25E8%2587%25AA%25E5%258A%25A8%25E5%258C%2596%25E9%2583%25A8%25E7%25BD%25B2%25E9%259D%2599%25E6%2580%2581%25E5%258D%259A%25E5%25AE%25A2%2f"
+     onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+      <span class="hidden">Google+</span>
+  </a>
+</section>
+
+
+
+    
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+  var disqus_shortname = 'fatestigma';
+  var disqus_url = 'http:\/\/fatestigma.github.io\/2016\/01\/29\/%E4%BD%BF%E7%94%A8-wercker-%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2\/';
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+
+  </footer>
+</article>
+
+</main>
+    <footer class="site-footer clearfix">
+        <section class="copyright"><a href="">Gallifrey</a> All rights reserved - 2016</section>
+        
+        <section class="poweredby">Proudly generated by <a class="icon-hugo" href="http://gohugo.io">HUGO</a>, with Modified <a class="icon-theme" href="https://github.com/vjeantet/hugo-theme-casper">Casper</a> theme</section>
+        
+    </footer>
+    </div>
+		
+		<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+		<script type="text/x-mathjax-config">
+		MathJax.Hub.Config({
+		  tex2jax: {
+		    inlineMath: [['$','$'], ['\\(','\\)']],
+		    displayMath: [['$$','$$'], ['\\[','\\]']],
+		    processEscapes: true,
+		    processEnvironments: true,
+		    
+		    TeX: { 
+					equationNumbers: { autoNumber: "AMS" },
+					extensions: ["AMSmath.js", "AMSsymbols.js"] 
+				}
+		  }
+		});
+		</script>
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Queue(function() {
+		    
+		    
+		    
+		    var all = MathJax.Hub.getAllJax(), i;
+		    for(i = 0; i < all.length; i += 1) {
+		        all[i].SourceElement().parentNode.className += ' has-jax';
+		    }
+		});
+		</script>
+		
+    <script type="text/javascript" src="http://fatestigma.github.io/js/jquery.js"></script>
+    <script type="text/javascript" src="http://fatestigma.github.io/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="http://fatestigma.github.io/js/index.js"></script>
+
+		
+    
+</body>
+</html>
+

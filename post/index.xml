@@ -7,8 +7,73 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <copyright>All rights reserved - 2016</copyright>
-    <lastBuildDate>Mon, 25 Jan 2016 21:06:33 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 29 Jan 2016 00:47:51 +0800</lastBuildDate>
     <atom:link href="http://fatestigma.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>使用 Wercker 自动化部署静态博客</title>
+      <link>http://fatestigma.github.io/2016/01/29/%E4%BD%BF%E7%94%A8-wercker-%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/</link>
+      <pubDate>Fri, 29 Jan 2016 00:47:51 +0800</pubDate>
+      
+      <guid>http://fatestigma.github.io/2016/01/29/%E4%BD%BF%E7%94%A8-wercker-%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/</guid>
+      <description>
+
+&lt;p&gt;人想偷懒的方法就是采用自动化，对于 Hugo 还有 Octopress、Jekyll 等静态网页生成工具来说，用来做博客的一般步骤就是：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;本地写新日志&lt;/li&gt;
+&lt;li&gt;本地运行静态网页生成工具来生成静态网站&lt;/li&gt;
+&lt;li&gt;将静态网站提交到网站托管服务器或 GitHub 上&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;然而每写一篇日志都要重复这些步骤全是让人很心烦，正好在 Hugo 的官方教程中翻到了「&lt;a href=&#34;http://gohugo.io/tutorials/automated-deployments/&#34; title=&#34;Automated deployments with Wercker&#34;&gt;Automated deployments with Wercker&lt;/a&gt;」，随即眼睛一亮，开始了我的折腾之旅。&lt;/p&gt;
+
+&lt;h2 id=&#34;什么是-wercker:498af5626af97a17ee9018cbffd1d04c&#34;&gt;什么是 Wercker&lt;/h2&gt;
+
+&lt;p&gt;这个 Wercker 是什么呢？其实我也不清楚，研究半天也只看出些许名堂，其简单来说就是定义一系列流程在你每次提交代码到 GitHub 时运行，其分为构建（Build）与部署（Deploy）两个部分，每个部分都有很多别人贡献的子动作（Step）可以直接拿来使用。其实若不是 Hugo 官方给出的教程不适合我，我基本都不用了解到这一步。&lt;/p&gt;
+
+&lt;h2 id=&#34;准备工作:498af5626af97a17ee9018cbffd1d04c&#34;&gt;准备工作&lt;/h2&gt;
+
+&lt;p&gt;首先你得现在你本地搭好环境，确定已经完成以下内容：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;安好了 Hugo，并已经新建好了站点。&lt;/li&gt;
+&lt;li&gt;设置好了版本管理，这里我们用的是 git，并将代码上传到 GitHub。&lt;/li&gt;
+&lt;li&gt;准备好网站的容器，这里我们用的是免费的 GitHub Pages 服务，并准备好一个 Access Token。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;连环境都没有的就别在这里扯淡了，赶快先&lt;a href=&#34;https://gohugo.io/overview/quickstart/&#34; title=&#34;Hugo Quickstart&#34;&gt;去老老实实地搭环境&lt;/a&gt;。&lt;/p&gt;
+
+&lt;h2 id=&#34;配置-wercker:498af5626af97a17ee9018cbffd1d04c&#34;&gt;配置 Wercker&lt;/h2&gt;
+
+&lt;p&gt;这里我就根据我自己的配置经历来介绍采用 GitHub Pages 的方案。&lt;/p&gt;
+
+&lt;p&gt;注册什么的废话不多说，注册完之后，根据提示绑定 GitHub 账号，然后新建应用，使用你之前准备好的 GitHub 项目，然后一通 blablabla，建立完成。&lt;/p&gt;
+
+&lt;p&gt;正题终于开始了，这个时候回到本机项目目录，并建立一个名叫 &lt;code&gt;wercker.yml&lt;/code&gt; 的文件，并写入以下内容。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;box: debian
+build:
+  steps:
+    - arjen/hugo-build:
+        version: &amp;quot;0.15&amp;quot;
+deploy:
+  steps:
+    - install-packages:
+        packages: git ssh-client
+    - leipert/git-push:
+         gh_oauth: $GH_TOKEN
+         gh_pages: true
+         basedir: public
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;可能有人看了官方的教程发现和我这个有略微差别，因为官方提供的那个代码中用的 &lt;code&gt;lukevivier/gh-pages@0.2.1&lt;/code&gt; 在部署上有些问题，对于 &lt;code&gt;username.github.io&lt;/code&gt; 的项目来说，应当采用 &lt;code&gt;master&lt;/code&gt; 分支来存放生成的静态页面，而那个 step 则仍会保存到 &lt;code&gt;gh-pages&lt;/code&gt; 分支；我后来改用的 &lt;code&gt;leipert/git-push&lt;/code&gt; 则是别人在 &lt;code&gt;lukevivier&lt;/code&gt; 的老版本上演绎的一个全新的工具其具体的功能不在这里详述。&lt;/p&gt;
+
+&lt;p&gt;修改完成后，先不要着急提交，回到 wercker 我们的应用来设置我们的部署，建立一个「自定义部署」。&lt;/p&gt;
+
+&lt;p&gt;接下来该干什么就自己猜吧。&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>从 Octopress 迁移到 Hugo</title>
